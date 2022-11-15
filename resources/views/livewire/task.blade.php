@@ -29,6 +29,7 @@
                     @endforelse
                 </ul>
             </div>
+            {{ $tasks->links() }}
         </div>
 
         <div class="pt-6">
@@ -51,6 +52,7 @@
                     @endforelse
                 </ul>
             </div>
+            {{ $completedTasks->links() }}
         </div>
     </div>
 

@@ -41,8 +41,8 @@ class Task extends Component
     public function render()
     {
         return view('livewire.task', [
-            'tasks' => TaskModel::where('is_completed', false)->latest()->take(3)->get(),
-            'completedTasks' => TaskModel::where('is_completed', true)->latest()->take(3)->get(),
+            'tasks' => TaskModel::where('is_completed', false)->latest()->paginate(3, ['*'], 'pendingTasksPage'),
+            'completedTasks' => TaskModel::where('is_completed', true)->latest()->paginate(3, ['*'], 'completedTasksPage'),
         ]);
     }
 }
