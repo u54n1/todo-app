@@ -14,7 +14,7 @@ class Task extends Component
     public bool $is_completed = false;
 
     protected $rules = [
-        'description' => 'required|max:100'
+        'description' => 'required|min:3|max:100'
     ];
 
     public function addTask()
@@ -42,7 +42,7 @@ class Task extends Component
     {
         return view('livewire.task', [
             'tasks' => TaskModel::where('is_completed', false)->latest()->paginate(3, ['*'], 'pendingTasksPage'),
-            'completedTasks' => TaskModel::where('is_completed', true)->latest()->paginate(3, ['*'], 'completedTasksPage'),
+            'completedTasks' => TaskModel::where('is_completed', true)->orderBy('updated_at', 'desc')->paginate(3, ['*'], 'completedTasksPage'),
         ]);
     }
 }
