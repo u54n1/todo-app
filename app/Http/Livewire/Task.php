@@ -35,7 +35,7 @@ class Task extends Component
 
     public function removeTask(TaskModel $task)
     {
-        $task = TaskModel::find($task->id)->delete();
+        TaskModel::find($task->id)->delete();
     }
 
     public function render()

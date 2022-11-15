@@ -1,9 +1,9 @@
 <div class="space-y-6">
-    <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
-        <h1 class="text-lg font-bold leading-6 text-gray-900">My Tasks</h1>
+    <div class="bg-white px-4 py-5 sm:px-6">
+        <h1 class="text-2xl font-bold leading-6 text-gray-900">My Tasks</h1>
     </div>
 
-    <div class="space-y-6 w-1/2 mx-auto">
+    <div class="space-y-6 w-3/4 mx-auto">
         <div class="">
             <h1 class="text-md font-bold leading-6 text-gray-400">TO-DO</h1>
             <div class="overflow-hidden rounded-lg border border-gray-300 bg-white mt-2 mb-4">
@@ -56,7 +56,7 @@
 
     <div class="bg-gray-200 px-6 py-6">
         <form wire:submit.prevent="addTask">
-            <label for="description" class="block text-sm font-medium text-gray-700">New Task</label>
+            <label for="description" class="block text-sm font-bold text-gray-700">New Task</label>
             <div class="mt-1 flex rounded-md shadow-sm">
                 <input wire:model="description" type="text" name="description" id="description" class="block w-full rounded-none rounded-l-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Task description">
                 <button type="submit" class="relative -ml-px inline-flex items-center space-x-2 rounded-r-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
