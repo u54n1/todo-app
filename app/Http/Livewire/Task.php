@@ -78,6 +78,10 @@ class Task extends Component
         TaskModel::find($task->id)->update([
             'is_completed' => false,
         ]);
+
+        $this->notification()->success(
+            $description = 'Your task was restored successfully.'
+        );
     }
 
     public function removeTask(TaskModel $task)
@@ -86,10 +90,9 @@ class Task extends Component
 
         $this->showEditTaskModal = false;
 
-        $this->notification([
-            'description' => 'Your task was deleted successfully.',
-            'icon'        => 'trash',
-        ]);
+        $this->notification()->error(
+            $description = 'Your task was deleted successfully.'
+        );
     }
 
     public function render()
