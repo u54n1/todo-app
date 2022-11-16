@@ -12,12 +12,13 @@ class Task extends Component
     use WithPagination, Actions;
 
     public string $description = '';
+    public string $addNewTaskDescription = '';
     public TaskModel $editTask;
     public bool $is_completed = false;
     public bool $showEditTaskModal = false;
 
     protected $rules = [
-        'description' => 'required|min:3|max:100'
+        'addNewTaskDescription' => 'required|min:3|max:100',
     ];
 
     public function addTask()
@@ -26,13 +27,13 @@ class Task extends Component
         $this->validate();
         // Create task
         TaskModel::create([
-            'description' => $this->description,
+            'description' => $this->addNewTaskDescription,
         ]);
         // Reset description state
-        $this->description = '';
+        $this->addNewTaskDescription = '';
         // notify new task added
         $this->notification()->success(
-            $description = 'Your task was successfully added'
+            $description = 'Your task was added successfully.'
         );
     }
 
@@ -45,16 +46,19 @@ class Task extends Component
 
     public function editTask(TaskModel $task)
     {
-        $this->validate();
-
-        TaskModel::find($task->id)->update([
-            'description' => $this->description,
-            'is_completed' => $this->is_completed,
+        $validatedData = $this->validate([
+            'description' => 'required|min:3|max:100',
+            'is_completed' => 'boolean',
         ]);
 
-        $this->description = '';
+        TaskModel::find($task->id)->update($validatedData);
+        $this->is_completed = false;
 
         $this->showEditTaskModal = false;
+
+        $this->notification()->success(
+            $description = 'Your task was updated successfully.'
+        );
 
     }
 
@@ -63,6 +67,10 @@ class Task extends Component
         TaskModel::find($task->id)->update([
             'is_completed' => true,
         ]);
+
+        $this->notification()->success(
+            $description = 'Your task was completed successfully.'
+        );
     }
 
     public function undoTaskCompletion(TaskModel $task)
@@ -77,6 +85,11 @@ class Task extends Component
         TaskModel::find($task->id)->delete();
 
         $this->showEditTaskModal = false;
+
+        $this->notification([
+            'description' => 'Your task was deleted successfully.',
+            'icon'        => 'trash',
+        ]);
     }
 
     public function render()

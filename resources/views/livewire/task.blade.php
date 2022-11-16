@@ -55,7 +55,7 @@
         <form wire:submit.prevent="addTask">
             <label for="description" class="block text-sm font-bold text-gray-700">New Task</label>
             <div class="mt-1 flex rounded-md shadow-sm">
-                <input wire:model="description" type="text" name="description" id="description" class="block w-full rounded-none rounded-l-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Task description">
+                <input wire:model="addNewTaskDescription" type="text" name="description" id="description" class="block w-full rounded-none rounded-l-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Task description">
                 <button type="submit" class="relative -ml-px inline-flex items-center space-x-2 rounded-r-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
