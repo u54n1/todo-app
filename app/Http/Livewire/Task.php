@@ -11,7 +11,9 @@ class Task extends Component
     use WithPagination;
 
     public string $description = '';
+    public TaskModel $editTask;
     public bool $is_completed = false;
+    public bool $showEditTaskModal = false;
 
     protected $rules = [
         'description' => 'required|min:3|max:100'
@@ -20,10 +22,32 @@ class Task extends Component
     public function addTask()
     {
         $this->validate();
+
         TaskModel::create([
             'description' => $this->description,
         ]);
+
         $this->description = '';
+    }
+
+    public function showEditModal(TaskModel $task)
+    {
+        $this->editTask = $task;
+        $this->description = $this->editTask->description;
+        $this->showEditTaskModal = true;
+    }
+
+    public function editTask(TaskModel $task)
+    {
+        $this->validate();
+
+        TaskModel::find($task->id)->update([
+            'description' => $this->description,
+            'is_completed' => $this->is_completed,
+        ]);
+
+        $this->showEditTaskModal = false;
+
     }
 
     public function completeTask(TaskModel $task)
@@ -36,6 +60,8 @@ class Task extends Component
     public function removeTask(TaskModel $task)
     {
         TaskModel::find($task->id)->delete();
+
+        $this->showEditTaskModal = false;
     }
 
     public function render()

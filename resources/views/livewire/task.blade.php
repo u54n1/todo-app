@@ -9,17 +9,13 @@
             <div class="overflow-hidden rounded-lg border border-gray-300 bg-white mt-2 mb-4">
                 <ul role="list" class="divide-y divide-gray-300">
                     @forelse($tasks as $task)
-                        <li class="flex justify-between items-center px-6 py-2">
+                        <li class="flex justify-between items-center px-6 py-2 space-x-8">
                             <p>{{ $task->description }}</p>
                             <div class="items-center flex space-x-8">
                                 <div>
                                     <input wire:click="completeTask({{ $task->id }})" type="checkbox">
                                 </div>
-                                <button wire:click="removeTask({{ $task->id }})">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                    </svg>
-                                </button>
+                                <x-button wire:click="showEditModal({{ $task->id }})" info flat icon="pencil" />
                             </div>
                         </li>
                     @empty
@@ -66,4 +62,21 @@
             @error('description') <span class="error text-red-500 text-sm">{{ $message }}</span> @enderror
         </form>
     </div>
+
+    <x-modal.card title="Edit Task" blur wire:model.defer="showEditTaskModal">
+        <div class="">
+            <x-input wire:model="description" label="Task" />
+        </div>
+
+        <x-slot name="footer">
+            <div class="flex justify-between gap-x-4">
+                <x-button flat negative label="Delete" wire:click="removeTask({{ $editTask->id ?? '' }})" />
+
+                <div class="flex">
+                    <x-button flat label="Cancel" wire:click="$toggle('showEditTaskModal')" />
+                    <x-button primary label="Save" wire:click="editTask({{ $editTask->id ?? '' }})" />
+                </div>
+            </div>
+        </x-slot>
+    </x-modal.card>
 </div>
