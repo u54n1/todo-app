@@ -59,6 +59,13 @@ class Task extends Component
         ]);
     }
 
+    public function undoTaskCompletion(TaskModel $task)
+    {
+        TaskModel::find($task->id)->update([
+            'is_completed' => false,
+        ]);
+    }
+
     public function removeTask(TaskModel $task)
     {
         TaskModel::find($task->id)->delete();

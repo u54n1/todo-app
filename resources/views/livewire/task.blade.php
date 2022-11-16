@@ -11,8 +11,8 @@
                     @forelse($pendingTasks as $pendingTask)
                         <li class="flex justify-between items-center px-6 py-2 space-x-8">
                             <p>{{ $pendingTask->description }}</p>
-                            <div class="items-center flex space-x-8">
-                                <div>
+                            <div class="items-center flex">
+                                <div class="mr-4">
                                     <input wire:click="completeTask({{ $pendingTask->id }})" type="checkbox">
                                 </div>
                                 <x-button wire:click="showEditModal({{ $pendingTask->id }})" info flat icon="pencil-alt" />
@@ -34,7 +34,11 @@
                 <ul role="list" class="divide-y divide-gray-300">
                     @forelse($completedTasks as $completedTask)
                         <li class="flex justify-between items-center space-x-2 px-6 py-2">
-                            <p class="text-gray-400 line-through">{{ $completedTask->description }}</p>
+                            <p class="text-gray-400 line-through hover:no-underline">{{ $completedTask->description }}</p>
+                            <div class="items-center flex">
+                                <x-button wire:click="undoTaskCompletion({{ $completedTask->id }})" flat icon="refresh" />
+                                <x-button wire:click="removeTask({{ $completedTask->id }})" negative flat icon="trash" />
+                            </div>
                         </li>
                     @empty
                         <p class="flex justify-center px-6 py-4">
