@@ -5,10 +5,11 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Task as TaskModel;
 use Livewire\WithPagination;
+use WireUi\Traits\Actions;
 
 class Task extends Component
 {
-    use WithPagination;
+    use WithPagination, Actions;
 
     public string $description = '';
     public TaskModel $editTask;
@@ -21,13 +22,18 @@ class Task extends Component
 
     public function addTask()
     {
+        // Validate inputs
         $this->validate();
-
+        // Create task
         TaskModel::create([
             'description' => $this->description,
         ]);
-
+        // Reset description state
         $this->description = '';
+        // notify new task added
+        $this->notification()->success(
+            $description = 'Your task was successfully added'
+        );
     }
 
     public function showEditModal(TaskModel $task)

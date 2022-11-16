@@ -70,7 +70,9 @@
     <x-modal.card title="Edit Task" blur wire:model.defer="showEditTaskModal">
         <div class="space-y-4">
             <x-input wire:model="description" label="Task" />
-            <x-checkbox lg id="left-label" left-label="Mark task as complete" wire:model.defer="is_completed" />
+            <div class="flex justify-end pt-4">
+                <x-checkbox lg id="left-label" left-label="Mark task as complete" wire:model.defer="is_completed" />
+            </div>
         </div>
 
         <x-slot name="footer">
