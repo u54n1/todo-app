@@ -46,6 +46,8 @@ class Task extends Component
             'is_completed' => $this->is_completed,
         ]);
 
+        $this->description = '';
+
         $this->showEditTaskModal = false;
 
     }
@@ -67,7 +69,7 @@ class Task extends Component
     public function render()
     {
         return view('livewire.task', [
-            'tasks' => TaskModel::where('is_completed', false)->latest()->paginate(3, ['*'], 'pendingTasksPage'),
+            'pendingTasks' => TaskModel::where('is_completed', false)->latest()->paginate(3, ['*'], 'pendingTasksPage'),
             'completedTasks' => TaskModel::where('is_completed', true)->orderBy('updated_at', 'desc')->paginate(3, ['*'], 'completedTasksPage'),
         ]);
     }

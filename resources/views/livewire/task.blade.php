@@ -8,14 +8,14 @@
             <h1 class="text-md font-bold leading-6 text-gray-400">TO-DO</h1>
             <div class="overflow-hidden rounded-lg border border-gray-300 bg-white mt-2 mb-4">
                 <ul role="list" class="divide-y divide-gray-300">
-                    @forelse($tasks as $task)
+                    @forelse($pendingTasks as $pendingTask)
                         <li class="flex justify-between items-center px-6 py-2 space-x-8">
-                            <p>{{ $task->description }}</p>
+                            <p>{{ $pendingTask->description }}</p>
                             <div class="items-center flex space-x-8">
                                 <div>
-                                    <input wire:click="completeTask({{ $task->id }})" type="checkbox">
+                                    <input wire:click="completeTask({{ $pendingTask->id }})" type="checkbox">
                                 </div>
-                                <x-button wire:click="showEditModal({{ $task->id }})" info flat icon="pencil" />
+                                <x-button wire:click="showEditModal({{ $pendingTask->id }})" info flat icon="pencil-alt" />
                             </div>
                         </li>
                     @empty
@@ -25,7 +25,7 @@
                     @endforelse
                 </ul>
             </div>
-            {{ $tasks->links() }}
+            {{ $pendingTasks->links() }}
         </div>
 
         <div class="pt-4">
@@ -64,8 +64,9 @@
     </div>
 
     <x-modal.card title="Edit Task" blur wire:model.defer="showEditTaskModal">
-        <div class="">
+        <div class="space-y-4">
             <x-input wire:model="description" label="Task" />
+            <x-checkbox lg id="left-label" left-label="Mark task as complete" wire:model.defer="is_completed" />
         </div>
 
         <x-slot name="footer">
