@@ -12,6 +12,8 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <wireui:scripts />
+        <script src="https://unpkg.com/alpinejs" defer></script>
 
         <!-- Styles -->
         @livewireStyles
@@ -41,8 +43,5 @@
         @stack('modals')
 
         @livewireScripts
-
-        <wireui:scripts />
-        <script src="https://unpkg.com/alpinejs" defer></script>
     </body>
 </html>
